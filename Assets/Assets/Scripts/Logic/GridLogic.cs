@@ -40,4 +40,32 @@ public class GridLogic : MonoBehaviour
 				if(c < WIDTH-1) cells[r][c].rt = cells[r][c+1];
 			}
 	}
+
+	public bool CanGoDown(PieceLogic piece)
+	{
+		for(int r = 0; r < piece.height; r++)
+			for(int c = 0; c < piece.width; c++)
+			{
+				if(piece.cells[r][c].color == ColorCell.NoColor)
+					continue;
+
+				int row = (int)piece.origin.y + 1 - r;
+				int col = (int)piece.origin.x + c;
+
+				if(row < 0 || col < 0 || col > WIDTH)
+					continue;
+
+				if(row > HEIGHT)
+					return false;	
+
+				if(cells[row][col].color != ColorCell.NoColor)
+					return false;
+			}
+		return true;
+	}
+
+	public void PrintPiece(PieceLogic piece)
+	{
+		// TODO
+	}
 }

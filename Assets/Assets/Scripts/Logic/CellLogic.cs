@@ -25,7 +25,7 @@ public class CellLogic
 	// Points to the down sibling cell
 	public CellLogic dn = null;
 	// Cell color
-	private ColorCell color = ColorCell.NoColor; 
+	public ColorCell color = ColorCell.NoColor; 
 	// Cell row position
 	private int row;
 	// Cell column position
@@ -46,6 +46,19 @@ public class CellLogic
 		cellView = v;
 		cellView.gameObject.name = id;
 		cellView.gameObject.transform.position = new Vector3(col, -row, 0);
+
+		var render = cellView.gameObject.GetComponent<SpriteRenderer>();
+
+		switch(color)
+		{
+		case ColorCell.Blue: render.color = new Color(0,0,1); break;
+		case ColorCell.Red: render.color = new Color(1,0,0); break;
+		case ColorCell.Green: render.color = new Color(0,1,0); break;
+		case ColorCell.Cyan: render.color = new Color(0,1,1); break;
+		case ColorCell.Magenta: render.color = new Color(1,0,1); break;
+		case ColorCell.Yellow: render.color = new Color(1,1,0); break;
+		case ColorCell.NoColor: render.color = new Color(1,1,1,.5f);break;
+		}
 	}
 
 }
