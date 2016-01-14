@@ -52,6 +52,7 @@
      <Compile Include="Assets\Assets\Scripts\Logic\PieceLogic.cs" />
      <Compile Include="Assets\Assets\Scripts\Logic\PlayerLogic.cs" />
      <Compile Include="Assets\Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Assets\Scripts\Managers\PieceSpawnerManager.cs" />
      <Compile Include="Assets\Assets\Scripts\View\CellView.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

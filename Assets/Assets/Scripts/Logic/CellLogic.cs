@@ -3,7 +3,7 @@ using System.Collections;
 
 public enum ColorCell
 {
-	NoColor,
+	NoColor = 0,
 	Red,
 	Blue,
 	Green,
@@ -46,19 +46,23 @@ public class CellLogic
 		cellView = v;
 		cellView.gameObject.name = id;
 		cellView.gameObject.transform.position = new Vector3(col, -row, 0);
+		cellView.TintColor(color);
+	}
 
-		var render = cellView.gameObject.GetComponent<SpriteRenderer>();
+	public void SetColor(ColorCell c)
+	{
+		color = c;
+		ResetColor();
+	}
 
-		switch(color)
-		{
-		case ColorCell.Blue: render.color = new Color(0,0,1); break;
-		case ColorCell.Red: render.color = new Color(1,0,0); break;
-		case ColorCell.Green: render.color = new Color(0,1,0); break;
-		case ColorCell.Cyan: render.color = new Color(0,1,1); break;
-		case ColorCell.Magenta: render.color = new Color(1,0,1); break;
-		case ColorCell.Yellow: render.color = new Color(1,1,0); break;
-		case ColorCell.NoColor: render.color = new Color(1,1,1,.5f);break;
-		}
+	public void ResetColor()
+	{
+		cellView.TintColor(color);
+	}
+
+	public void TintColor(ColorCell c)
+	{
+		cellView.TintColor(c);
 	}
 
 }
