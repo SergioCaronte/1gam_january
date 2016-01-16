@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 enum GamePhase
@@ -26,7 +27,8 @@ public class GameManager : Singleton<GameManager>
 	public GridLogic grid = null;
 	private GamePhase phase = GamePhase.Starting;
 	private PieceLogic piece = null;
-	private float cycleTime = .2f;
+	private float cycleTime = .5f;
+	private bool doingCycle = false;
 
 	#endregion
 
@@ -36,6 +38,8 @@ public class GameManager : Singleton<GameManager>
 		base.Awake();
 		InputManager.instance.onLeftEvent += LeftPressed;
 		InputManager.instance.onRightEvent += RightPressed;
+		InputManager.instance.onDownEvent += DownPressed;
+		InputManager.instance.onUpEvent += UpPressed;
 	}
 
 	void Start () 
@@ -46,7 +50,7 @@ public class GameManager : Singleton<GameManager>
 
 	public void RightPressed()
 	{
-		if(grid.CanGoRight(piece))
+		if(grid.CanSlide(piece, 1))
 		{
 			piece.MoveRight();
 			grid.PrintPiece(piece);
@@ -55,11 +59,27 @@ public class GameManager : Singleton<GameManager>
 
 	public void LeftPressed()
 	{
-		if(grid.CanGoLeft(piece))
+		if(grid.CanSlide(piece, -1))
 		{
 			piece.MoveLeft();
 			grid.PrintPiece(piece);
 		}
+	}
+
+	public void UpPressed()
+	{
+		if(!doingCycle)
+		{
+			piece.Rotate();
+			if(!grid.IsPlaceable(piece))
+				piece.Unrotate();
+			grid.PrintPiece(piece);
+		}
+	}
+
+	public void DownPressed()
+	{
+		cycleTime = .01f;
 	}
 
 	// Pause warns listeners that the game has been paused. 
@@ -81,6 +101,7 @@ public class GameManager : Singleton<GameManager>
 	// Operates a cycle of gameplay. Update autmatic routines.
 	IEnumerator DoCycle()
 	{
+		doingCycle = true;
 		if(grid.CanGoDown(piece))
 		{
 			piece.MoveDown();
@@ -91,23 +112,28 @@ public class GameManager : Singleton<GameManager>
 			// check end game
 			// the game ends when the piece can go down anymore 
 			// and is still on initial posistion.
-			if(piece.getOrigin().y == PieceLogic.INITPOS)
+			if(piece.GetOrigin().y == PieceLogic.INITPOS)
 			{
 				print("End Game!");
 				phase = GamePhase.Ended;
 			}
 			else // otherwise, consolidate piece into grid
 			{
+				cycleTime = .5f;
+				// put the piece onto grid.
 				grid.ConsolidatePiece(piece);
-				// generate another piece
+				// check if player has scored. 
+				StartCoroutine(grid.CheckScore());
+				// generate another piece.
 				piece = PieceSpawnerManager.instance.GrabNewPiece();
+				// reset cycletime in case of player pressing down.
 			}
-			//TODO check if player has scored
 		}
 
 		if(onGameCycle != null)
 			onGameCycle();
-		
+
+		doingCycle = false;
 		yield return new WaitForSeconds(cycleTime);
 	}
 		

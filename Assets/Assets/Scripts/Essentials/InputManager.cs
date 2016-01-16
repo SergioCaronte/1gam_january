@@ -10,6 +10,7 @@ public class InputManager : Singleton<InputManager>
 	public event Action onRightEvent;
 	public event Action onLeftEvent;
 	public event Action onDownEvent;
+	public event Action onUpEvent;
 
 	#endregion
 
@@ -31,6 +32,9 @@ public class InputManager : Singleton<InputManager>
 		
 		if(Input.GetKeyDown(KeyCode.DownArrow) && onDownEvent != null)
 			onDownEvent();
+
+		if(Input.GetKeyDown(KeyCode.UpArrow) && onUpEvent != null)
+			onUpEvent();
 	}
 	#endregion
 }

@@ -25,7 +25,7 @@ public class CellLogic
 	// Points to the down sibling cell
 	public CellLogic dn = null;
 	// Cell color
-	public ColorCell color = ColorCell.NoColor; 
+	private ColorCell color = ColorCell.NoColor; 
 	// Cell row position
 	private int row;
 	// Cell column position
@@ -33,6 +33,24 @@ public class CellLogic
 	// Points to graphic representation of the cell
 	private CellView cellView = null;
 	#endregion
+
+	#region Getters & Setters
+
+	public int GetRow() 
+	{ return row; }
+
+	public int GetCol()
+	{ return col; }
+
+	public ColorCell GetColor()
+	{ return color; }
+
+	public void SetColor(ColorCell c)
+	{	color = c;	ResetColor(); }
+
+	#endregion
+
+	#region Methods
 
 	public CellLogic(int row, int col)
 	{
@@ -48,15 +66,10 @@ public class CellLogic
 		cellView.gameObject.transform.position = new Vector3(col, -row, 0);
 		cellView.TintColor(color);
 	}
-
-	public void SetColor(ColorCell c)
-	{
-		color = c;
-		ResetColor();
-	}
-
+		
 	public void ResetColor()
 	{
+		if(cellView == null)	return;
 		cellView.TintColor(color);
 	}
 
@@ -64,5 +77,12 @@ public class CellLogic
 	{
 		cellView.TintColor(c);
 	}
+
+	public void Destroy()
+	{
+		SetColor(ColorCell.NoColor);
+	}
+
+	#endregion
 
 }

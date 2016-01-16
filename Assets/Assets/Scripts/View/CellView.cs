@@ -26,13 +26,13 @@ public class CellView : MonoBehaviour
 		
 		switch(c)
 		{
-		case ColorCell.Blue: render.color = new Color(0,0,1); break;
-		case ColorCell.Red: render.color = new Color(1,0,0); break;
-		case ColorCell.Green: render.color = new Color(0,1,0); break;
-		case ColorCell.Cyan: render.color = new Color(0,1,1); break;
+		case ColorCell.Blue: render.color = new Color(0,0,1,1); break;
+		case ColorCell.Red: render.color = new Color(1,0,0,1); break;
+		case ColorCell.Green: render.color = new Color(0,1,0,1); break;
+		case ColorCell.Cyan: render.color = new Color(0,1,1,1); break;
 		case ColorCell.Magenta: render.color = new Color(1,0,1); break;
-		case ColorCell.Yellow: render.color = new Color(1,1,0); break;
-		case ColorCell.NoColor: render.color = new Color(1,1,1);break;
+		case ColorCell.Yellow: render.color = new Color(1,1,0,1); break;
+		case ColorCell.NoColor: render.color = new Color(1,1,1,0);break;
 		}
 	}
 }
