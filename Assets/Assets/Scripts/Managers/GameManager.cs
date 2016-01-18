@@ -30,6 +30,9 @@ public class GameManager : Singleton<GameManager>
 	private float cycleTime = .5f;
 	private bool doingCycle = false;
 
+	private int points;
+	private int multiplier;
+
 	#endregion
 
 	#region Methods
@@ -40,14 +43,18 @@ public class GameManager : Singleton<GameManager>
 		InputManager.instance.onRightEvent += RightPressed;
 		InputManager.instance.onDownEvent += DownPressed;
 		InputManager.instance.onUpEvent += UpPressed;
+		grid.onScored += OnScore;
 	}
 
 	void Start () 
     {
 		StartCoroutine(GameLoop());
 		piece = PieceSpawnerManager.instance.GrabNewPiece();
+		OnScore(0);
+		OnMultiplier(1);
 	}
 
+	// Event called when right is pressed
 	public void RightPressed()
 	{
 		if(grid.CanSlide(piece, 1))
@@ -57,6 +64,7 @@ public class GameManager : Singleton<GameManager>
 		}
 	}
 
+	// Event called when left is pressed
 	public void LeftPressed()
 	{
 		if(grid.CanSlide(piece, -1))
@@ -66,6 +74,7 @@ public class GameManager : Singleton<GameManager>
 		}
 	}
 
+	// Event called when up is pressed
 	public void UpPressed()
 	{
 		if(!doingCycle)
@@ -77,9 +86,24 @@ public class GameManager : Singleton<GameManager>
 		}
 	}
 
+	// Event called when down is pressed
 	public void DownPressed()
 	{
 		cycleTime = .01f;
+	}
+
+	// Event called when player scores
+	public void OnScore(int cells)
+	{
+		points += (int)Math.Pow(2, cells) * multiplier;
+		GUIManager.instance.SetScore(points);
+	}
+
+	// Update the multiplier factor
+	public void OnMultiplier(int multi)
+	{
+		multiplier = multi;
+		GUIManager.instance.SetMultiplier(multiplier);
 	}
 
 	// Pause warns listeners that the game has been paused. 
@@ -124,6 +148,12 @@ public class GameManager : Singleton<GameManager>
 				grid.ConsolidatePiece(piece);
 				// check if player has scored. 
 				StartCoroutine(grid.CheckScore());
+				// check if it's occured a score indeed
+				// if so, add multiplier, otherwise reset it.
+				if(grid.HasScored())
+					OnMultiplier(multiplier+1);
+				else
+					OnMultiplier(1);
 				// generate another piece.
 				piece = PieceSpawnerManager.instance.GrabNewPiece();
 				// reset cycletime in case of player pressing down.

@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GridLogic : MonoBehaviour 
 {
+	#region Action
+
+	public event Action<int> onScored; 
+
+	#endregion
+
 	#region Members
 
 	public GameObject cell;
@@ -11,11 +18,15 @@ public class GridLogic : MonoBehaviour
 	const int HEIGHT = 15;
 	const int WIDTH = 10;
 
+	private bool scored;
+
 	#endregion
 
 	// Use this for initialization
 	void Start ()
     {
+		scored = false;
+
 		cells = new CellLogic[HEIGHT][];
 		for(int i = 0; i < HEIGHT; i++)
 			cells[i] = new CellLogic[WIDTH];
@@ -40,6 +51,11 @@ public class GridLogic : MonoBehaviour
 			if(c > 1) cells[r][c].lf = cells[r][c-1];
 			if(c < WIDTH-1) cells[r][c].rt = cells[r][c+1];
 		}
+	}
+
+	public bool HasScored()
+	{
+		return scored;
 	}
 
 	/*
@@ -194,6 +210,8 @@ public class GridLogic : MonoBehaviour
 	public IEnumerator CheckScore()
 	{
 		bool dirty = false;
+		// Clear score flag
+		scored = false;
 
 		for(int r = 0; r < HEIGHT; r++)
 		{
@@ -207,14 +225,20 @@ public class GridLogic : MonoBehaviour
 				List<CellLogic> scoreCells = IsCellScore(cells[r][c]);
 				if(scoreCells.Count > 0)
 				{
+					// Update score flag
+					scored = true;
+					// Call score update for listeners
+					if(onScored != null)
+						onScored(scoreCells.Count);
+					
 					dirty = true;
-					//Vanish will scored cells
+					// Vanish scored cells
 					foreach (var cell in scoreCells)
 					{
 						cell.Destroy();
 					}	
 					yield return new WaitForSeconds(.3f);
-					//Update affected cells
+					// Update affected cells
 					foreach (var cell in scoreCells)
 					{
 						DropPieces(cell);	
