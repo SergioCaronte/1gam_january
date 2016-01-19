@@ -38,7 +38,7 @@ public class GridLogic : MonoBehaviour
 			cells[r][c] = new CellLogic(r, c);
 			GameObject go = Instantiate(cell);
 			go.transform.parent = this.transform;
-			cells[r][c].SetCellView(go.GetComponent<CellView>());
+			cells[r][c].SetCellView(go.GetComponent<CellView>(), 1);
 		}
 		
 		// Filling siblings up
@@ -260,11 +260,29 @@ public class GridLogic : MonoBehaviour
 	public void DropPieces(CellLogic cell)
 	{
 		int c = cell.GetCol();
-		for(int r = cell.GetRow(); r > 0; r--)
+		int or = 1;
+		// check how position is must drop before lay onto any piece
+		while(cell.dn != null &&cell.dn.GetColor() == ColorCell.NoColor)
 		{
-			cells[r][c].SetColor(cells[r-1][c].GetColor());
+			cell = cell.dn;
+		  	or++;
 		}
-		cells[0][c].SetColor(ColorCell.NoColor);
+
+		// drop the cells 
+		for(int r = cell.GetRow()-or; r >= 0; r--)
+		{ 
+			if(cells[r+or][c].GetColor() == ColorCell.NoColor)
+			{
+				cells[r+or][c].SetColor(cells[r][c].GetColor());
+				cells[r][c].SetColor(ColorCell.NoColor);
+			}
+		}
+
+		// clear the top cells
+		for(int r = or; r >= 0; r--)
+		{
+			cells[r][c].SetColor(ColorCell.NoColor);
+		}
 	}
 
 	/*

@@ -21,8 +21,8 @@ public class CellView : MonoBehaviour
 
 	public void TintColor(ColorCell c)
 	{
-		if(render == null)
-			print("Some problemo");
+		// sanity check
+		if(render == null)	return;
 		
 		switch(c)
 		{
@@ -34,5 +34,13 @@ public class CellView : MonoBehaviour
 		case ColorCell.Yellow: render.color = new Color(1,1,0,1); break;
 		case ColorCell.NoColor: render.color = new Color(1,1,1,0);break;
 		}
+	}
+
+	public void SetLayerOrder(int order)
+	{
+		// sanity check
+		if(render == null)	return;
+
+		render.sortingOrder = order;
 	}
 }

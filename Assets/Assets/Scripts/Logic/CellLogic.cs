@@ -59,12 +59,18 @@ public class CellLogic
 		this.id = row.ToString() + "_" + col.ToString();
 	}
 
-	public void SetCellView(CellView v)
+	public void Reset()
+	{
+		SetColor(ColorCell.NoColor);
+	}
+
+	public void SetCellView(CellView v, int layerOrder)
 	{
 		cellView = v;
 		cellView.gameObject.name = id;
-		cellView.gameObject.transform.position = new Vector3(col, -row, 0);
+		cellView.gameObject.transform.localPosition = new Vector3(col, -row, 0);
 		cellView.TintColor(color);
+		cellView.SetLayerOrder(layerOrder);
 	}
 		
 	public void ResetColor()
