@@ -3,13 +3,14 @@ using System.Collections;
 
 public enum ColorCell
 {
-	NoColor = 0,
-	Red,
-	Blue,
-	Green,
-	Yellow,
-	Cyan,
-	Magenta
+	NoColor = 	0x000000,
+	Red = 		0x000001,
+	Blue = 		0x000010,
+	Green =		0x000100,
+	Yellow =	0x001000,
+	Cyan = 		0x010000,
+	Magenta =   0x100000,
+	Chroma =    0x111111
 }
 
 public class CellLogic
@@ -62,6 +63,11 @@ public class CellLogic
 	public void Reset()
 	{
 		SetColor(ColorCell.NoColor);
+	}
+
+	public bool Match(ColorCell clr)
+	{
+		return true;
 	}
 
 	public void SetCellView(CellView v, int layerOrder)

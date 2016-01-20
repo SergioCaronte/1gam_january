@@ -30,7 +30,7 @@ public class InputManager : Singleton<InputManager>
 		if(Input.GetKeyDown(KeyCode.LeftArrow) && onLeftEvent != null)
 			onLeftEvent();
 		
-		if(Input.GetKeyDown(KeyCode.DownArrow) && onDownEvent != null)
+		if(Input.GetKeyDown(KeyCode.Space) && onDownEvent != null)
 			onDownEvent();
 
 		if(Input.GetKeyDown(KeyCode.UpArrow) && onUpEvent != null)

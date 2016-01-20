@@ -237,7 +237,7 @@ public class GridLogic : MonoBehaviour
 					{
 						cell.Destroy();
 					}	
-					yield return new WaitForSeconds(.3f);
+					yield return new WaitForSeconds(.2f);
 					// Update affected cells
 					foreach (var cell in scoreCells)
 					{
@@ -250,7 +250,7 @@ public class GridLogic : MonoBehaviour
 				break;
 		}
 
-		yield return new WaitForSeconds(.3f);
+		yield return new WaitForSeconds(.1f);
 		if(dirty)
 		{
 			yield return StartCoroutine(CheckScore());

@@ -5,15 +5,14 @@ public class CellView : MonoBehaviour
 {
 	#region Members
 
-	private SpriteRenderer render = null;
+	public SpriteRenderer render = null;
 
 	#endregion
 
 	void Awake()
 	{
-		render = gameObject.GetComponent<SpriteRenderer>();
 	}
-
+		
 	public void ResetColor(ColorCell c)
 	{
 		TintColor(c);
@@ -32,7 +31,8 @@ public class CellView : MonoBehaviour
 		case ColorCell.Cyan: render.color = new Color(0,1,1,1); break;
 		case ColorCell.Magenta: render.color = new Color(1,0,1); break;
 		case ColorCell.Yellow: render.color = new Color(1,1,0,1); break;
-		case ColorCell.NoColor: render.color = new Color(1,1,1,0);break;
+		case ColorCell.Chroma: render.color = new Color(1,1,1,1); break;
+		case ColorCell.NoColor: render.color = new Color(0,0,0,0);break;
 		}
 	}
 

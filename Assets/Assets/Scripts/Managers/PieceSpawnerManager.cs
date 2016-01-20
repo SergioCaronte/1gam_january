@@ -4,6 +4,9 @@ using System.Collections;
 public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 {
 	#region Members
+	static ColorCell[] COLORS = { ColorCell.Red, ColorCell.Blue, ColorCell.Green, 
+		ColorCell.Cyan, ColorCell.Yellow, ColorCell.Magenta, ColorCell.Chroma};
+
 	public GameObject cellView;
 	public GameObject nextPieceHolder;
 
@@ -54,7 +57,7 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*  _ _
@@ -68,10 +71,10 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(0,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,2).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(0,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,2).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*    _ _
@@ -85,10 +88,10 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,2).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,2).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*  _ _
@@ -102,10 +105,10 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(1,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*    _
@@ -119,10 +122,10 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(1,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,2).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,2).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*  _ _
@@ -137,10 +140,10 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(2,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(2,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(2,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(2,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*  _ _
@@ -155,10 +158,10 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(2,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(0,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(2,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(2,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(0,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(2,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*  _ _
@@ -172,9 +175,9 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,1).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 
 	/*  _ 
@@ -188,7 +191,7 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Initializing cells.
 		nextPiece.ResetCells();
 		// Picking randomly a color for the cell
-		nextPiece.GetCell(0,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
-		nextPiece.GetCell(1,0).SetColor((ColorCell)Random.Range(rangeMin, rangeMax));
+		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 	}
 }

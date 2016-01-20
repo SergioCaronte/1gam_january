@@ -147,7 +147,7 @@ public class GameManager : Singleton<GameManager>
 				// put the piece onto grid.
 				grid.ConsolidatePiece(piece);
 				// check if player has scored. 
-				StartCoroutine(grid.CheckScore());
+				yield return StartCoroutine(grid.CheckScore());
 				// check if it's occured a score indeed
 				// if so, add multiplier, otherwise reset it.
 				if(grid.HasScored())
