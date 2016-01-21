@@ -1,14 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Assets\Scripts\Managers\GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Assets\Scripts\Logic\CellLogic.cs">
     <Files>
-      <File FileName="Assets\Assets\Scripts\Logic\GridLogic.cs" Line="253" Column="37" />
+      <File FileName="Assets\Assets\Scripts\Logic\GridLogic.cs" Line="297" Column="12" />
       <File FileName="Assets\Assets\Scripts\Managers\GameManager.cs" Line="81" Column="4" />
-      <File FileName="Assets\Assets\Scripts\Managers\PieceSpawnerManager.cs" Line="195" Column="75" />
+      <File FileName="Assets\Assets\Scripts\Managers\PieceSpawnerManager.cs" Line="21" Column="16" />
       <File FileName="Assets\Assets\Scripts\Managers\GUIManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Assets\Scripts\Logic\PieceLogic.cs" Line="1" Column="1" />
-      <File FileName="Assets\Assets\Scripts\Logic\CellLogic.cs" Line="70" Column="15" />
-      <File FileName="Assets\Assets\Scripts\View\CellView.cs" Line="37" Column="3" />
+      <File FileName="Assets\Assets\Scripts\Logic\CellLogic.cs" Line="19" Column="6" />
+      <File FileName="Assets\Assets\Scripts\View\CellView.cs" Line="35" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

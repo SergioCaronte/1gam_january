@@ -71,7 +71,7 @@ public class GridLogic : MonoBehaviour
 			for(int c = 0; c < pWidth; c++)
 			{
 				// if cell is NoColor it's not necessary to check it.
-				if(piece.GetCell(r,c).GetColor() == ColorCell.NoColor)
+				if(piece.GetCell(r,c).Match(CellColor.NoColor))
 					continue;
 				// piece cell position on grid 
 				int row = or - r;
@@ -80,7 +80,7 @@ public class GridLogic : MonoBehaviour
 				if(row < 0 || row >= HEIGHT || col < 0 || col >= WIDTH)
 					return false;	
 				// if that cell is already taken, return false.
-				if(cells[row][col].GetColor() != ColorCell.NoColor)
+				if(!cells[row][col].Match(CellColor.NoColor))
 					return false;
 			}
 		return true;
@@ -99,7 +99,7 @@ public class GridLogic : MonoBehaviour
 			for(int c = 0; c < pWidth; c++)
 			{
 				// if cell is NoColor it's not necessary to check it.
-				if(piece.GetCell(r,c).GetColor() == ColorCell.NoColor)
+				if(piece.GetCell(r,c).Match(CellColor.NoColor))
 					continue;
 				// piece cell position on grid 
 				int row = or + 1 - r;
@@ -111,7 +111,7 @@ public class GridLogic : MonoBehaviour
 				if(row >= HEIGHT)
 					return false;	
 				// if that cell is already taken, return false.
-				if(cells[row][col].GetColor() != ColorCell.NoColor)
+				if(!cells[row][col].Match(CellColor.NoColor))
 					return false;
 			}
 		return true;
@@ -131,7 +131,7 @@ public class GridLogic : MonoBehaviour
 			for(int c = 0; c < pWidth; c++)
 			{
 				// if cell is NoColor it's not necessary to check it.
-				if(piece.GetCell(r,c).GetColor() == ColorCell.NoColor)
+				if(piece.GetCell(r,c).Match(CellColor.NoColor))
 					continue;
 				// piece cell position on grid 
 				int row = or - r;
@@ -145,7 +145,7 @@ public class GridLogic : MonoBehaviour
 					return false;
 				
 				// if that cell is already taken, return false.
-				if(cells[row][col].GetColor() != ColorCell.NoColor)
+				if(!cells[row][col].Match(CellColor.NoColor))
 					return false;
 			}
 		return true;
@@ -174,7 +174,7 @@ public class GridLogic : MonoBehaviour
 			if(or-r < 0)
 				continue;
 
-			if(piece.GetCell(r,c).GetColor() != ColorCell.NoColor)	
+			if(!piece.GetCell(r,c).Match(CellColor.NoColor))	
 				cells[or-r][oc+c].TintColor(piece.GetCell(r,c).GetColor());
 		}
 	}
@@ -196,7 +196,7 @@ public class GridLogic : MonoBehaviour
 			// sanity check for when piece is not completely shown.
 			if(or-r < 0)	continue;
 
-			if(piece.GetCell(r,c).GetColor() != ColorCell.NoColor)
+			if(!piece.GetCell(r,c).Match(CellColor.NoColor))
 			{
 				cells[or-r][oc+c].SetColor(piece.GetCell(r,c).GetColor());
 			}
@@ -218,7 +218,8 @@ public class GridLogic : MonoBehaviour
 			for(int c = 0; c < WIDTH; c++)
 			{
 				// if empty cell, continue.
-				if(cells[r][c].GetColor() == ColorCell.NoColor)
+				if(cells[r][c].Match(CellColor.NoColor) || 
+					cells[r][c].Match(CellColor.Chroma))
 					continue;
 
 				//!to use array.
@@ -262,7 +263,7 @@ public class GridLogic : MonoBehaviour
 		int c = cell.GetCol();
 		int or = 1;
 		// check how position is must drop before lay onto any piece
-		while(cell.dn != null &&cell.dn.GetColor() == ColorCell.NoColor)
+		while(cell.dn != null &&cell.dn.Match(CellColor.NoColor))
 		{
 			cell = cell.dn;
 		  	or++;
@@ -271,17 +272,17 @@ public class GridLogic : MonoBehaviour
 		// drop the cells 
 		for(int r = cell.GetRow()-or; r >= 0; r--)
 		{ 
-			if(cells[r+or][c].GetColor() == ColorCell.NoColor)
+			if(cells[r+or][c].Match(CellColor.NoColor))
 			{
 				cells[r+or][c].SetColor(cells[r][c].GetColor());
-				cells[r][c].SetColor(ColorCell.NoColor);
+				cells[r][c].SetColor(CellColor.NoColor);
 			}
 		}
 
 		// clear the top cells
 		for(int r = or; r >= 0; r--)
 		{
-			cells[r][c].SetColor(ColorCell.NoColor);
+			cells[r][c].SetColor(CellColor.NoColor);
 		}
 	}
 
@@ -293,7 +294,7 @@ public class GridLogic : MonoBehaviour
 	{
 		List<CellLogic> hCells = new List<CellLogic>();
 		List<CellLogic> vCells = new List<CellLogic>();
-		ColorCell clr = cell.GetColor();
+		CellColor clr = cell.GetColor();
 
 		hCells.Add(cell);
 		vCells.Add(cell);
@@ -301,28 +302,28 @@ public class GridLogic : MonoBehaviour
 		CellLogic baseCell = cell;
 		// walking the neighborhood while they are the same color
 		// walking to the left
-		while(cell.lf != null && cell.lf.GetColor() == clr)
+		while(cell.lf != null && cell.lf.Match(clr))
 		{
 			hCells.Add(cell.lf);
 			cell = cell.lf;
 		}
 		cell = baseCell;
 		// walking to the right
-		while(cell.rt != null && cell.rt.GetColor() == clr)
+		while(cell.rt != null && cell.rt.Match(clr))
 		{
 			hCells.Add(cell.rt);
 			cell = cell.rt;
 		}
 		cell = baseCell;
 		// walking up
-		while(cell.up != null && cell.up.GetColor() == clr)
+		while(cell.up != null && cell.up.Match(clr))
 		{
 			vCells.Add(cell.up);
 			cell = cell.up;
 		}
 		cell = baseCell;
 		// walking down
-		while(cell.dn != null && cell.dn.GetColor() == clr)
+		while(cell.dn != null && cell.dn.Match(clr))
 		{
 			vCells.Add(cell.dn);
 			cell = cell.dn;

@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum ColorCell
+public enum CellColor
 {
-	NoColor = 	0x000000,
-	Red = 		0x000001,
-	Blue = 		0x000010,
-	Green =		0x000100,
-	Yellow =	0x001000,
-	Cyan = 		0x010000,
-	Magenta =   0x100000,
-	Chroma =    0x111111
+	NoColor = 	0x0000001,
+	Red = 		0x0000010,
+	Blue = 		0x0000100,
+	Green =		0x0001000,
+	Yellow =	0x0010000,
+	Cyan = 		0x0100000,
+	Magenta =   0x1000000,
+	Chroma =    0x1111110
+}
+
+public enum CellFeature
+{
+	Regular,
+	Bomb
 }
 
 public class CellLogic
@@ -26,7 +32,7 @@ public class CellLogic
 	// Points to the down sibling cell
 	public CellLogic dn = null;
 	// Cell color
-	private ColorCell color = ColorCell.NoColor; 
+	private CellColor color = CellColor.NoColor; 
 	// Cell row position
 	private int row;
 	// Cell column position
@@ -43,10 +49,10 @@ public class CellLogic
 	public int GetCol()
 	{ return col; }
 
-	public ColorCell GetColor()
+	public CellColor GetColor()
 	{ return color; }
 
-	public void SetColor(ColorCell c)
+	public void SetColor(CellColor c)
 	{	color = c;	ResetColor(); }
 
 	#endregion
@@ -62,12 +68,17 @@ public class CellLogic
 
 	public void Reset()
 	{
-		SetColor(ColorCell.NoColor);
+		SetColor(CellColor.NoColor);
 	}
 
-	public bool Match(ColorCell clr)
+	public bool Match(CellColor clr)
 	{
-		return true;
+		// if argument color is Chromatic,
+		// it just matches if self color is chromatic as well.
+		if(clr == CellColor.Chroma)
+			return color == clr;
+		else
+			return( (clr & color) > 0); 
 	}
 
 	public void SetCellView(CellView v, int layerOrder)
@@ -85,14 +96,14 @@ public class CellLogic
 		cellView.TintColor(color);
 	}
 
-	public void TintColor(ColorCell c)
+	public void TintColor(CellColor c)
 	{
 		cellView.TintColor(c);
 	}
 
 	public void Destroy()
 	{
-		SetColor(ColorCell.NoColor);
+		SetColor(CellColor.NoColor);
 	}
 
 	#endregion

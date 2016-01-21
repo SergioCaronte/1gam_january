@@ -4,8 +4,8 @@ using System.Collections;
 public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 {
 	#region Members
-	static ColorCell[] COLORS = { ColorCell.Red, ColorCell.Blue, ColorCell.Green, 
-		ColorCell.Cyan, ColorCell.Yellow, ColorCell.Magenta, ColorCell.Chroma};
+	static CellColor[] COLORS = { CellColor.Red, CellColor.Blue, CellColor.Green, 
+		CellColor.Cyan, CellColor.Yellow, CellColor.Magenta, CellColor.Chroma};
 
 	public GameObject cellView;
 	public GameObject nextPieceHolder;
@@ -22,8 +22,8 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		piece = new PieceLogic();
 		nextPiece = new PieceLogic();
 		nextPiece.SetView(Instantiate(cellView), nextPieceHolder);
-		rangeMin = 1;
-		rangeMax = 5;
+		rangeMin = 0;
+		rangeMax = 7;
 
 		GrabNewPiece();
 	}

@@ -13,26 +13,26 @@ public class CellView : MonoBehaviour
 	{
 	}
 		
-	public void ResetColor(ColorCell c)
+	public void ResetColor(CellColor c)
 	{
 		TintColor(c);
 	}
 
-	public void TintColor(ColorCell c)
+	public void TintColor(CellColor c)
 	{
 		// sanity check
 		if(render == null)	return;
 		
 		switch(c)
 		{
-		case ColorCell.Blue: render.color = new Color(0,0,1,1); break;
-		case ColorCell.Red: render.color = new Color(1,0,0,1); break;
-		case ColorCell.Green: render.color = new Color(0,1,0,1); break;
-		case ColorCell.Cyan: render.color = new Color(0,1,1,1); break;
-		case ColorCell.Magenta: render.color = new Color(1,0,1); break;
-		case ColorCell.Yellow: render.color = new Color(1,1,0,1); break;
-		case ColorCell.Chroma: render.color = new Color(1,1,1,1); break;
-		case ColorCell.NoColor: render.color = new Color(0,0,0,0);break;
+		case CellColor.Blue: render.color = new Color(0,0,1,1); break;
+		case CellColor.Red: render.color = new Color(1,0,0,1); break;
+		case CellColor.Green: render.color = new Color(0,1,0,1); break;
+		case CellColor.Cyan: render.color = new Color(0,1,1,1); break;
+		case CellColor.Magenta: render.color = new Color(1,0,1); break;
+		case CellColor.Yellow: render.color = new Color(1,1,0,1); break;
+		case CellColor.Chroma: render.color = new Color(1,1,1,1); break;
+		case CellColor.NoColor: render.color = new Color(0,0,0,0);break;
 		}
 	}
 
