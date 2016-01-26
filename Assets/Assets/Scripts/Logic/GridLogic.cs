@@ -174,8 +174,11 @@ public class GridLogic : MonoBehaviour
 			if(or-r < 0)
 				continue;
 
-			if(!piece.GetCell(r,c).Match(CellColor.NoColor))	
+			if(!piece.GetCell(r,c).Match(CellColor.NoColor))
+			{	
 				cells[or-r][oc+c].TintColor(piece.GetCell(r,c).GetColor());
+				cells[or-r][oc+c].SetFeature(piece.GetCell(r,c).GetFeature());	
+			}
 		}
 	}
 
@@ -199,6 +202,7 @@ public class GridLogic : MonoBehaviour
 			if(!piece.GetCell(r,c).Match(CellColor.NoColor))
 			{
 				cells[or-r][oc+c].SetColor(piece.GetCell(r,c).GetColor());
+				cells[or-r][oc+c].SetFeature(piece.GetCell(r,c).GetFeature());
 			}
 		}
 	}
@@ -217,9 +221,8 @@ public class GridLogic : MonoBehaviour
 		{
 			for(int c = 0; c < WIDTH; c++)
 			{
-				// if empty cell, continue.
-				if(cells[r][c].Match(CellColor.NoColor) || 
-					cells[r][c].Match(CellColor.Chroma))
+				// if empty cell or chromatic, continue.
+				if(cells[r][c].Match(CellColor.NoColor) || cells[r][c].Match(CellColor.Chroma))
 					continue;
 
 				//!to use array.
@@ -236,7 +239,7 @@ public class GridLogic : MonoBehaviour
 					// Vanish scored cells
 					foreach (var cell in scoreCells)
 					{
-						cell.Destroy();
+						DestroyCell(cell, scoreCells);
 					}	
 					yield return new WaitForSeconds(.2f);
 					// Update affected cells
@@ -252,10 +255,16 @@ public class GridLogic : MonoBehaviour
 		}
 
 		yield return new WaitForSeconds(.1f);
+		// while pieces have changed, we check for new scores
 		if(dirty)
 		{
 			yield return StartCoroutine(CheckScore());
 		}
+	}
+
+	public void DestroyCell(CellLogic cell, List<CellLogic> scoreCells)
+	{
+		cell.Destroy();
 	}
 
 	public void DropPieces(CellLogic cell)
@@ -332,9 +341,78 @@ public class GridLogic : MonoBehaviour
 		// if found a sequence greater than 2, then the player scored.
 		List<CellLogic> scoredCells = new List<CellLogic>();
 		if(vCells.Count > 2)
+		{
 			scoredCells.AddRange(vCells);
+			foreach(var c in vCells)
+			{
+				CheckBombCell(c, scoredCells); 
+			}
+		}
 		if(hCells.Count > 2)
+		{
 			scoredCells.AddRange(hCells);
+			foreach(var c in hCells)
+			{
+				CheckBombCell(c, scoredCells); 
+			}
+		}
 		return scoredCells;
+	}
+
+	void CheckBombCell(CellLogic cell, List<CellLogic> scoreCells)
+	{
+		// If it was a bomb cell, neighborhood is destroyed
+		if(cell.GetFeature() == CellFeature.Bomb)
+		{
+			print("Bomb");
+			// left cell
+			if(cell.lf != null)
+			{
+				if(!cell.lf.Match(CellColor.NoColor) && !scoreCells.Contains(cell.lf))
+					scoreCells.Add(cell.lf);
+				// up cell of left cell
+				if(cell.lf.up != null && !cell.lf.up.Match(CellColor.NoColor) && !scoreCells.Contains(cell.lf.up))
+					scoreCells.Add(cell.lf.up);
+				// down cell of left cell
+				if(cell.lf.dn != null && !cell.lf.dn.Match(CellColor.NoColor) && !scoreCells.Contains(cell.lf.dn))
+					scoreCells.Add(cell.lf.dn);				
+			}
+
+			if(cell.rt != null)
+			{
+				if(!cell.rt.Match(CellColor.NoColor) && !scoreCells.Contains(cell.rt))
+					scoreCells.Add(cell.rt);
+				// up cell of right cell
+				if(cell.rt.up != null && !cell.rt.up.Match(CellColor.NoColor) && !scoreCells.Contains(cell.rt.up))
+					scoreCells.Add(cell.rt.up);
+				// down cell of right cell
+				if(cell.rt.dn != null && !cell.rt.dn.Match(CellColor.NoColor) && !scoreCells.Contains(cell.rt.dn))
+					scoreCells.Add(cell.rt.dn);				
+			}
+
+			if(cell.dn != null)
+			{
+				if(!cell.dn.Match(CellColor.NoColor) && !scoreCells.Contains(cell.dn))
+					scoreCells.Add(cell.dn);
+				// left cell of down cell
+				if(cell.dn.lf != null && !cell.dn.lf.Match(CellColor.NoColor) && !scoreCells.Contains(cell.dn.lf))
+					scoreCells.Add(cell.dn.lf);
+				// right cell of down cell
+				if(cell.dn.rt != null && !cell.dn.rt.Match(CellColor.NoColor) && !scoreCells.Contains(cell.dn.rt))
+					scoreCells.Add(cell.dn.rt);				
+			}
+
+			if(cell.up != null)
+			{
+				if(!cell.up.Match(CellColor.NoColor) && !scoreCells.Contains(cell.up))
+					scoreCells.Add(cell.up);
+				// left cell of up
+				if(cell.up.lf != null && !cell.up.lf.Match(CellColor.NoColor) && !scoreCells.Contains(cell.up.lf))
+					scoreCells.Add(cell.up.lf);
+				// right cell of up
+				if(cell.up.rt != null && !cell.up.rt.Match(CellColor.NoColor) && !scoreCells.Contains(cell.up.rt))
+					scoreCells.Add(cell.up.rt);				
+			}
+		}
 	}
 }

@@ -144,6 +144,8 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		nextPiece.GetCell(2,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		//testar
+		nextPiece.GetCell(1,0).SetFeature(CellFeature.Bomb);
 	}
 
 	/*  _ _
@@ -162,6 +164,8 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(0,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(2,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		//testar
+		nextPiece.GetCell(1,0).SetFeature(CellFeature.Bomb);
 	}
 
 	/*  _ _
@@ -178,6 +182,8 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(1,1).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		//testar
+		nextPiece.GetCell(1,0).SetFeature(CellFeature.Bomb);
 	}
 
 	/*  _ 
@@ -193,5 +199,7 @@ public class PieceSpawnerManager : Singleton<PieceSpawnerManager>
 		// Picking randomly a color for the cell
 		nextPiece.GetCell(0,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
 		nextPiece.GetCell(1,0).SetColor(COLORS[Random.Range(rangeMin, rangeMax)]);
+		//testar
+		nextPiece.GetCell(1,0).SetFeature(CellFeature.Bomb);
 	}
 }

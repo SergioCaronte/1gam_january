@@ -4,6 +4,7 @@
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
+		_IsBomb ("Is a bomb cell", Range(0,1)) = 0
 	}
 
 	SubShader
@@ -60,6 +61,7 @@
 			sampler2D _MainTex;
 			sampler2D _AlphaTex;
 			float _AlphaSplitEnabled;
+			float _IsBomb;
 
 			fixed4 SampleSpriteTexture (float2 uv)
 			{
@@ -72,15 +74,28 @@
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
+				float speed = 2;
+
 				fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
 				c.rgb *= c.a;
+				if(_IsBomb == 1)
+				{
+					//c.rgb *= .8 + (abs(sin(_Time.z)/2));
+					c.r = pow(c.r, 2 * (abs(sin(_Time.z))));
+					c.g = pow(c.g, 2 * (abs(sin(_Time.z))));
+					c.b = pow(c.b, 2 * (abs(sin(_Time.z))));
+				}
+
 				if(IN.color.r == 1 && IN.color.g == 1 && IN.color.b == 1)
 				{
-					float speed = 2;
-					c.r = c.r * ( max( cos(IN.texcoord.y + .5 + _SinTime.z*speed) , sin(IN.texcoord.x + .5 + _CosTime.z*speed)));
-					c.g = c.g * ( max( sin(IN.texcoord.x + .5 + _CosTime.z*speed) , sin(IN.texcoord.y + .5 + _SinTime.z*speed)));
-					c.b = c.b * ( max( cos(IN.texcoord.y + .5 + _CosTime.z*speed) , cos(IN.texcoord.x + .5 + _SinTime.z*speed)));
+					float sint = (_SinTime.z*speed);
+					float cost = (_CosTime.z*speed);
+
+					c.r = c.r * ( max( cos(IN.texcoord.y + .5 + sint) , sin(IN.texcoord.x + .5 + cost)));
+					c.g = c.g * ( max( sin(IN.texcoord.x + .5 + cost) , sin(IN.texcoord.y + .5 + sint)));
+					c.b = c.b * ( max( cos(IN.texcoord.y + .5 + cost) , cos(IN.texcoord.x + .5 + sint)));
 				}
+
 				return c;
 			}
 		ENDCG

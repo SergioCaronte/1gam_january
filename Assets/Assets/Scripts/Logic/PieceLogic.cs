@@ -76,7 +76,10 @@ public class PieceLogic
 		ResetCells();
 		for(int r = 0; r < height; r++)
 			for(int c = 0; c < width; c++)
+			{
 				cells[r][c].SetColor(root.GetCell(r,c).GetColor());
+				cells[r][c].SetFeature(root.GetCell(r,c).GetFeature());
+			}
 	}
 
 	public void SetView(GameObject cell, GameObject parent)
@@ -126,6 +129,7 @@ public class PieceLogic
 			{
 				temp[r][c] = new CellLogic(r,c);
 				temp[r][c].SetColor(cells[c][width-r-1].GetColor());
+				temp[r][c].SetFeature(cells[c][width-r-1].GetFeature());
 			}
 		}
 
@@ -134,6 +138,7 @@ public class PieceLogic
 			for(int c = 0; c < height; c++)
 			{
 				cells[r][c].SetColor(temp[r][c].GetColor());
+				cells[r][c].SetFeature(temp[r][c].GetFeature());
 			}
 		}
 

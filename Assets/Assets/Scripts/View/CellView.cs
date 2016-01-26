@@ -43,4 +43,16 @@ public class CellView : MonoBehaviour
 
 		render.sortingOrder = order;
 	}
+
+	public void SetFeature(CellFeature f)
+	{
+		ResetFeatures();
+		if(f == CellFeature.Bomb)
+			render.material.SetFloat("_IsBomb", 1);
+	}
+
+	void ResetFeatures()
+	{
+		render.material.SetFloat("_IsBomb", 0);
+	}
 }

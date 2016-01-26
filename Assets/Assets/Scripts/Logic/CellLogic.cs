@@ -33,6 +33,8 @@ public class CellLogic
 	public CellLogic dn = null;
 	// Cell color
 	private CellColor color = CellColor.NoColor; 
+	// Cell feature
+	private CellFeature feature = CellFeature.Regular;
 	// Cell row position
 	private int row;
 	// Cell column position
@@ -53,7 +55,17 @@ public class CellLogic
 	{ return color; }
 
 	public void SetColor(CellColor c)
-	{	color = c;	ResetColor(); }
+	{ color = c;	ResetColor(); }
+
+	public CellFeature GetFeature()
+	{ return feature; }
+
+	public void SetFeature(CellFeature f)
+	{ 
+		feature = f;  
+		if(cellView != null)
+			cellView.SetFeature(f); 
+	}
 
 	#endregion
 
@@ -69,6 +81,7 @@ public class CellLogic
 	public void Reset()
 	{
 		SetColor(CellColor.NoColor);
+		SetFeature(CellFeature.Regular);
 	}
 
 	public bool Match(CellColor clr)
@@ -100,10 +113,11 @@ public class CellLogic
 	{
 		cellView.TintColor(c);
 	}
-
+		
 	public void Destroy()
 	{
 		SetColor(CellColor.NoColor);
+		SetFeature(CellFeature.Regular);
 	}
 
 	#endregion
