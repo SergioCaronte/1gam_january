@@ -364,7 +364,6 @@ public class GridLogic : MonoBehaviour
 		// If it was a bomb cell, neighborhood is destroyed
 		if(cell.GetFeature() == CellFeature.Bomb)
 		{
-			print("Bomb");
 			// left cell
 			if(cell.lf != null)
 			{

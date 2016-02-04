@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
 	public event Action<int> onCountDown;
 	public event Action onPauseGame;
 	public event Action onResumeGame;
+	public event Action onGameOver;
 
 	#endregion 
 
@@ -109,6 +110,7 @@ public class GameManager : Singleton<GameManager>
 	// Pause warns listeners that the game has been paused. 
 	public void Pause()
 	{
+		phase = GamePhase.Paused;
 		if(onPauseGame != null)
 			onPauseGame();
 	}
@@ -116,6 +118,7 @@ public class GameManager : Singleton<GameManager>
 	// Resume warns listeners that the game has been resumed.
 	public void Resume()
 	{
+		phase = GamePhase.Playing;
 		if(onResumeGame != null)
 			onResumeGame();
 	}
@@ -140,6 +143,8 @@ public class GameManager : Singleton<GameManager>
 			{
 				print("End Game!");
 				phase = GamePhase.Ended;
+				if(onGameOver != null)
+					onGameOver();
 			}
 			else // otherwise, consolidate piece into grid
 			{
@@ -181,6 +186,7 @@ public class GameManager : Singleton<GameManager>
 				yield return StartCoroutine(DoCycle());
 				break;
 			case GamePhase.Paused:
+				yield return new WaitForEndOfFrame();
 				break;
 			}
 		}
